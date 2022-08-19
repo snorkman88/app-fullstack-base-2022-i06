@@ -29,7 +29,6 @@ var  devices = [
 ];
 //=======[ Main module code ]==================================================
 app.put("/devices/:id",function(req,res){
-    console.log("Llegue al servidor")
     console.log(Object.keys(req.body).length)
 //    if(req.body.id!=undefined&& req.body.state!=undefined){
 //        console.log(req.body);
@@ -42,7 +41,6 @@ app.put("/devices/:id",function(req,res){
     let description = req.body.description
     let state = req.body.state
     let type = req.body.type
-    console.log(typeof(req.params.id))
     utils.query(
         `UPDATE smart_home.Devices SET name='${name}', description='${description}', state=${state}, type=${type} WHERE id=${req.params.id}` , function (err, rta, field) {
             if (err){
