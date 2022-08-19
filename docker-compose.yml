@@ -10,12 +10,12 @@ services:
         command:                 "tsc --project /workspace --outDir /output --watch --pretty true"
 
     mysql-server:
-        image:                   mysql:5.7
+        image:                   arm64v8/mysql:oracle
         hostname:                mysql-server
         environment:
             MYSQL_ROOT_PASSWORD: userpass
         volumes:
-            -                    ./db/dumps:/docker-entrypoint-initdb.d
+#            -                    ./db/dumps:/docker-entrypoint-initdb.d
             -                    ./db/data:/var/lib/mysql
         networks:
             -                    app-fullstack-net

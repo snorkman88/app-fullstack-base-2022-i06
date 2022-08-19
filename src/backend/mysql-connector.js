@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
     host     : 'mysql-server',
     port     : '3306',
     user     : 'root',
-    password : 'userpass',
+    password : 'password',
     database : 'smart_home'
 });
 
