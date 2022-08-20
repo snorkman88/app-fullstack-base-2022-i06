@@ -1,20 +1,11 @@
-declare const M;
-class Main implements EventListenerObject, ResponseLister {
-    public listaPersonas: Array<Persona> = new Array();
-    public etidadesAcciones: Array<Acciones> = new Array();
-    public nombre: string;
+declare const M; 
+class Main {
+    public devices: Array<Device> = new Array();
     public framework: FrameWork = new FrameWork();
-    constructor() {
-        
-        this.framework.ejecutarRequest("GET", "http://localhost:8000/devices", this)
- 
-        this.listaPersonas.push(new Usuario("Juan", 12, "jPerez"));
-        this.listaPersonas.push(new Administrador("Pedro", 35));
-        this.listaPersonas.push(new Persona("S", 12));
-        this.etidadesAcciones.push(new Usuario("Juan", 12, "jPerez"));
-        this.etidadesAcciones.push(new Administrador("Juan", 12));
 
-        
+    constructor() {
+        //this.devices = this.framework.consultar()
+        this.devices = JSON.parse(this.framework.consultar());
     }
 
     public handlerResponse(status: number, response: string) {
@@ -82,7 +73,7 @@ class Main implements EventListenerObject, ResponseLister {
         }else if (e.type == "click") {
       
             
-            alert("Hola " +  this.listaPersonas[0].nombre +" ");    
+            //alert("Hola " +  this.listaPersonas[0].nombre +" ");    
         } else {
             alert("se hizo doble click en el titulo")
         }
@@ -96,7 +87,7 @@ window.addEventListener("load", () => {
     let btn = document.getElementById("btnSaludar");
     let btn2 = document.getElementById("btnDoble");
     let main: Main = new Main();
-    main.nombre = "Matias"
+    //main.nombre = "Matias"
 
     btn2.addEventListener("dblclick", main);
     btn.addEventListener("click", main);
