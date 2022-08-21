@@ -1,8 +1,8 @@
 interface Acciones{
 
-  consultar(): string;
-  guardar(): string;
-  modificar(): string;
-  eliminar(): string;
+  consultar(responseListener:ResponseListener, id?: number);
+  guardar(device:Device, responseListener:ResponseListener);
+  modificar(device:Device, responseListener:ResponseListener);
+  eliminar(id: number, responseListener:ResponseListener);
 
 }

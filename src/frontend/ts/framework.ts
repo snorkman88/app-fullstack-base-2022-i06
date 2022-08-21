@@ -1,60 +1,49 @@
-class FrameWork implements Acciones, ResponseListener{
-  xmlHttp : XMLHttpRequest
-  constructor(){
-    this.xmlHttp = new XMLHttpRequest();
-  }
-    
+class FrameWork implements Acciones{
 
-  handlerResponse(status: number, response: string) {
-  }
-  handlerResponseActualizar(status: number, response: string) {
-    //throw new Error("Method not implemented.");
+  consultar(responseListener:ResponseListener
+  ) {
+    this.ejecutarRequest("GET", "http://localhost:8000/devices", responseListener)
   }
 
-  consultar(
-  ):string {
-    //TODO manejar los datos de 'result'. Convertir la lista de JSON en 
-    //instancias de Device
-    let a: Array<Device> = new Array()
-    return JSON.stringify(this.ejecutarRequest("GET", "http://localhost:8000/devices", this))
-    
+  guardar(nuevo_device:Device, responseListener:ResponseListener) {
+    let URL:string = "http://localhost:8000/devices/"
+    this.ejecutarRequest("POST", URL, responseListener, nuevo_device)
   }
-  guardar(): string {
-    throw new Error("Method not implemented.");
+
+  modificar(nuevo_device:Device, responseListener:ResponseListener) {
+    let URL:string = "http://localhost:8000/devices/" + nuevo_device.id
+    this.ejecutarRequest("PUT", URL, responseListener, nuevo_device)
   }
-  modificar(): string {
-    throw new Error("Method not implemented.");
-  }
-  eliminar(): string {
-    throw new Error("Method not implemented.");
+
+  eliminar(id:number, responseListener:ResponseListener) {
+    let URL:string = "http://localhost:8000/devices/"+id
+    this.ejecutarRequest("DELETE", URL, responseListener)
   }
                      
-  public ejecutarRequest(metodo: string, url: string, lister:ResponseListener, data?:any):string {
+  public ejecutarRequest(metodo: string, url: string, responseListener:ResponseListener, data?:any) {
     let xmlHttp: XMLHttpRequest = new XMLHttpRequest();
         xmlHttp.onreadystatechange = () => {
           if (xmlHttp.readyState == 4) {
             if (metodo == "GET") {
-              return xmlHttp.responseText
-              //lister.handlerResponse(xmlHttp.status, xmlHttp.responseText)
-            } else {
-              lister.handlerResponseActualizar(xmlHttp.status,xmlHttp.responseText)
-              return "blah"
+              responseListener.handlerResponseGet(xmlHttp.status, xmlHttp.responseText)
             }
+            else if(metodo == "DELETE"){ 
+              responseListener.handlerResponseDelete(xmlHttp.status, xmlHttp.responseText)
             }
-            return "jaja"
+            else {
+              responseListener.handlerResponseActualizar(xmlHttp.status, xmlHttp.responseText)
+            } 
+          }
     }
-    return "jaja"
-
    
-//        xmlHttp.open(metodo, url, true);
-//        if (metodo == "POST") {
-//          xmlHttp.setRequestHeader("Content-Type", "application/json")
-//          xmlHttp.send(JSON.stringify(data))
-//        } else {
-//          xmlHttp.send();  
-//        }
-    
-        
-     
+        xmlHttp.open(metodo, url, true);
+
+        if (metodo == "POST" || "PUT") {
+          xmlHttp.setRequestHeader("Content-Type", "application/json")
+          xmlHttp.send(JSON.stringify(data))
+        } else {
+          xmlHttp.send();  
+        }
+
   }
 }

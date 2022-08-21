@@ -13,12 +13,7 @@ app.use(express.static('/home/node/app/static/'));
 //=======[ Main module code ]==================================================
 app.put("/devices/:id",function(req,res){
     console.log(Object.keys(req.body).length)
-//    if(req.body.id!=undefined&& req.body.state!=undefined){
-//        console.log(req.body);
-//        res.send("actualizo");
-//    }else{
-//        res.send("ERROR");
-//    }
+
 
     let name = req.body.name
     let description = req.body.description
