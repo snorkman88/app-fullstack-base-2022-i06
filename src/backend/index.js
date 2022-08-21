@@ -1,5 +1,4 @@
 //=======[ Settings, Imports & Data ]==========================================
-
 var PORT    = 3000;
 
 var express = require('express');
@@ -11,31 +10,10 @@ app.use(express.json());
 // to serve static files
 app.use(express.static('/home/node/app/static/'));
 
-var  devices = [
-    { 
-        'id': 1, 
-        'name': 'Lampara 1', 
-        'description': 'Luz living', 
-        'state': 1, 
-        'type': 1, 
-    },
-    { 
-        'id': 2, 
-        'name': 'Ventilador 1', 
-        'description': 'Ventilador Habitacion', 
-        'state': 1, 
-        'type': 2, 
-    },
-];
 //=======[ Main module code ]==================================================
 app.put("/devices/:id",function(req,res){
     console.log(Object.keys(req.body).length)
-//    if(req.body.id!=undefined&& req.body.state!=undefined){
-//        console.log(req.body);
-//        res.send("actualizo");
-//    }else{
-//        res.send("ERROR");
-//    }
+
 
     let name = req.body.name
     let description = req.body.description
@@ -98,9 +76,20 @@ app.post('/devices/', function(req,res){
 app.get('/devices/', function(req, res) {
    
     console.log("Alguien pidio divices!");
-    setTimeout(function(){
-        res.send(JSON.stringify(devices)).status(200);
-    }, 2000);
+
+    utils.query(
+            `SELECT * from smart_home.Devices`, function (err, rta, field) {
+                if (err){
+                    console.log(err)
+                    res.status(400)
+                }
+                else {
+                    res.send(rta).status(200);
+                }
+            }
+        );
+    
+    
     
 });
 
