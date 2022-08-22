@@ -158,37 +158,118 @@ En esta sección podés ver los detalles específicos de funcionamiento del cód
 
 ### Agregar un dispositivo
 
-Completá los pasos para agregar un dispositivo desde el cliente web.
+Para agregar un dispositivo se utiliza el formulario al final de la pagina y es necesario ingresa 3 campos: nombre, descripcion y tipo de dispositivo.  
+En esta implementacion, el tipo de dispositivo a ingresar debe ser un entero para que no se genere un error al interactuar con el backend e insertar en la base de datos.
 
 ### Frontend
-
-Completá todos los detalles sobre cómo armaste el frontend, sus interacciones, etc.
+Para editar un dispositivo he utilizado un "modal" con un formulario y un boton. Cada vez que el usuario hace click en modificar un dispositivo, se llama al modal, se cargan los datos actuales del dispositivo en el formulario.
+Al terminar la edicion y hacer click en guardar el modal llama al endpoint "devices" con la accion PUT para modificar el dispositivo en la base de datos.
 
 ### Backend
 
 Completá todos los detalles de funcionamiento sobre el backend, sus interacciones con el cliente web, la base de datos, etc.
+Para el desarrollo del backend se utilizo Postman como banco de pruebas de todos los endpoint. Se adjunta la coleccion de requests en formato JSON. 
 
 <details><summary><b>Ver los endpoints disponibles</b></summary><br>
 
 Completá todos los endpoints del backend con los metodos disponibles, los headers y body que recibe, lo que devuelve, ejemplos, etc.
 
-1) Devolver el estado de los dispositivos.
+1) Los endpoint desarrollados fueron en total 4.
 
 ```json
 {
-    "method": "get",
-    "request_headers": "application/json",
-    "request_body": "",
-    "response_code": 200,
-    "request_body": {
-        "devices": [
-            {
-                "id": 1,
-                "status": true,
-                "description": "Kitchen light"
-            }
-        ]
-    },
+	"info": {
+		"_postman_id": "ca26c0b0-b14d-4d33-b785-b76c190f60f1",
+		"name": "Diseno de aplicaciones",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9505102"
+	},
+	"item": [
+		{
+			"name": "get_all_devices",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/devices",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"devices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "modify",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/devices/8",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"devices",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete_existing_device",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8000/devices/6",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"devices",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create_new_device",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"luces pileta\",\n    \"description\": \"tiras de led\",\n    \"state\":52,\n    \"type\":10\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8000/devices/",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"devices",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
 }
 ``` 
 
