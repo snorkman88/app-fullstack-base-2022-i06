@@ -49,8 +49,8 @@ class Main implements ResponseListener{
                   On
                 </label>
               </div>
-              <button id="btn_borrar_${disp.id}" class="btn waves-effect waves-light button-view red"><i class="material-icons left">directions_run</i>Eliminar</button>
-              <button id="btn_call_modal_${disp.id}" class="btn waves-effect waves-light button-view purple"><i class="material-icons left">directions_run</i>Modificar</button>
+              <button id="btn_borrar_${disp.id}" class="btn waves-effect waves-light button-view red"><i class="material-icons left">delete_forever</i>Eliminar</button>
+              <button id="btn_call_modal_${disp.id}" class="btn waves-effect waves-light button-view purple"><i class="material-icons left">edit</i>Modificar</button>
               </a>
               </li>`
             }
